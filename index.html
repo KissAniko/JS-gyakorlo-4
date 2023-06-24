@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objektum módszerek</title>
+</head>
+<body>
+    <p id = "demo"></p>
+    <p id = "demo2"></p>
+    <p id = demo3></p>
+    <p id = "demo4"></p>
+    <p id = "demo5"></p>
+    <p id = "demo6"></p>
+    <script>
+const person = {
+    utónév: "Lala",
+    előnév: "Tündér",
+    szülDátum: 2000,
+    lakhely: "Mennyország",
+    foglalkozás: "tündér"
+};
+document.getElementById("demo").innerHTML = "neve: " + person.előnév + " " + person.utónév + "<br>" 
+                                            + "Születési dátum: " + person.szülDátum;
+
+// vagy így --->
+
+document.getElementById("demo2").innerHTML= "neve: " + person ["előnév"] + " " + person["utónév"] + "<br>" 
+                                             + "Születési dátum: " + person["szülDátum"];
+
+                                             // Mindkettő eredménye ugyanaz.
+
+                                             /* neve: Tündér Lala
+                                                Születési dátum: 2000
+
+                                                neve: Tündér Lala
+                                                Születési dátum: 2000   */
+                                             
+//-------------------------------------------------------------------------------------------------------------------
+
+const person2 = {
+  firstName: "Lala",
+  lastName : "Tündér",
+  id       : 1.,
+  fullName : function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+document.getElementById("demo3").innerHTML= "Név:" + person2.fullName() + "<br>"
+                                             + "Id: " + person2.id;
+
+                                                /*     eredmény: Név:Lala Tündér
+                                                                 Id: 1  */
+//-----------------------------------------------------------------------------------------------------------------------
+
+let személy = "valaki";
+document.getElementById("demo4").innerHTML= myFunction();
+
+function myFunction(){
+    return (személy);                          //  eredmény : valaki
+}
+// Ha ezt írom : return this.személy ---> eredmény: undefined  ( nem értelmezi)
+
+//----------------------------------------------------------------------------------------------------------------------
+
+let megnevezes = {
+    teljesNév : function(){
+        return this.vezNev + " " + this.kerNev;
+    }
+};
+let  megnevezes2= {
+    vezNev : "Buci",
+    kerNev: "Baba"
+};
+let xy = megnevezes.teljesNév.call(megnevezes2);
+document.getElementById("demo5").innerHTML= xy;
+
+                                               //  eredmény: Buci baba
+
+//--------------------------------------------------------------------------------------------------------------------
+
+const allatok ={
+    FajtaÉsSzine: function(){
+        return this.szine + " " + this.allatFajta;
+    }
+}
+let property ={
+    allatFajta: "cica",
+    szine: "iromba"
+};
+let allat = allatok.FajtaÉsSzine.bind(property);
+document.getElementById("demo6").innerHTML= allat();
+
+                                               // eredmény: iromba cica
+    </script>   
+                        
+</body>
+</html>
